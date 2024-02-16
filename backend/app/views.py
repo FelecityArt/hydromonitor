@@ -31,7 +31,13 @@ def get_all(start,end):
    
     if request.method == "GET":
         '''Add your code here to complete this route'''
-
+        try:
+            timestamp = mongo.getAllInRange(start, end)
+            data = list(timestamp)
+            if data:
+                return jsonify({"status":"found","data": data})
+        except Exception as e:
+            print(f"get_timestamp error: f{str(e)}") 
     # FILE DATA NOT EXIST
     return jsonify({"status":"not found","data":[]})
    
@@ -44,7 +50,13 @@ def get_temperature_mmar(start,end):
    
     if request.method == "GET": 
         '''Add your code here to complete this route'''
-
+        try:
+            temperature = mongo.temperatureMMAR(start, end)
+            data = list(temperature)
+            if data:
+                return jsonify({"status":"found","data": data})
+        except Exception as e:
+            print(f"get_temperature error: f{str(e)}")
     # FILE DATA NOT EXIST
     return jsonify({"status":"not found","data":[]})
 
@@ -58,7 +70,13 @@ def get_humidity_mmar(start,end):
    
     if request.method == "GET": 
         '''Add your code here to complete this route'''
-
+        try:
+            humidity = mongo.humidityMMAR(start, end)
+            data = list(humidity)
+            if data:
+                return jsonify({"status":"found","data": data})
+        except Exception as e:
+            print(f"get_humidity error: f{str(e)}")
     # FILE DATA NOT EXIST
     return jsonify({"status":"not found","data":[]})
 
@@ -72,7 +90,13 @@ def get_freq_distro(variable,start,end):
    
     if request.method == "GET": 
         '''Add your code here to complete this route'''         
-
+        try:
+            freqDis = mongo.frequencyDistro(variable, start, end)
+            data = list(freqDis)
+            if data:
+                return jsonify({"status":"found","data": data})
+        except Exception as e:
+            print(f"get_frequencyDistribution error: f{str(e)}")
     # FILE DATA NOT EXIST
     return jsonify({"status":"not found","data":[]})
 
@@ -84,9 +108,8 @@ def get_images(filename):
    
     if request.method == "GET":
         '''Add your code here to complete this route'''
-        
         # FILE DOES NOT EXIST
-        return jsonify({"status":"file not found"}), 404
+    return jsonify({"status":"file not found"}), 404
 
 
 
@@ -129,6 +152,5 @@ def add_header(response):
 def page_not_found(error):
     """Custom 404 page."""    
     return jsonify({"status": 404}), 404
-
 
 

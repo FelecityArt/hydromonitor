@@ -32,8 +32,8 @@ class DB:
         self.ObjectId                       = ObjectId 
         self.server			                = Config.DB_SERVER
         self.port			                = Config.DB_PORT
-        self.username                   	= parse.quote_plus(Config.DB_USERNAME)
-        self.password                   	= parse.quote_plus(Config.DB_PASSWORD)
+        self.username = parse.quote_plus(str(Config.DB_USERNAME))
+        self.password = parse.quote_plus(str(Config.DB_PASSWORD))
         self.remoteMongo                	= MongoClient
         self.ReturnDocument                 = ReturnDocument
         self.PyMongoError               	= errors.PyMongoError
